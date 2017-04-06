@@ -1,20 +1,16 @@
 module ProductLib.Style.Main exposing (..)
 
-import Css
-import Css.Namespace
-import ProductLib.Style.Common
+import Css exposing (Stylesheet)
 import ProductLib.Style.Global
+import ProductLib.View
 import ProductLib.View.Modal
 
 
-css =
-    style
-        |> Css.Namespace.namespace ProductLib.Style.Common.namespace
-        |> Css.stylesheet
-
-
+style : Stylesheet
 style =
-    List.concat
-        [ ProductLib.Style.Global.style
-        , ProductLib.View.Modal.style
-        ]
+    Css.stylesheet <|
+        List.concat
+            [ ProductLib.Style.Global.style
+            , ProductLib.View.style
+            , ProductLib.View.Modal.style
+            ]

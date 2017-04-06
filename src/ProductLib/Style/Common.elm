@@ -1,19 +1,6 @@
 module ProductLib.Style.Common exposing (..)
 
 import Css exposing (..)
-import Html.CssHelpers
-
-
-namespace =
-    "iz_"
-
-
-helpers =
-    Html.CssHelpers.withNamespace namespace
-
-
-cls class =
-    helpers.class [ class ]
 
 
 colors =
