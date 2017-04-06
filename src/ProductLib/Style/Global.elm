@@ -1,8 +1,8 @@
-module Css.Global exposing (..)
+module ProductLib.Style.Global exposing (..)
 
 import Css exposing (..)
 import Css.Elements as Elements
-import Css.Common exposing (colors, gradient)
+import ProductLib.Style.Common exposing (colors, gradient)
 
 
 type CssClasses

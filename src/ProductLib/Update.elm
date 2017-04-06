@@ -1,6 +1,6 @@
-module Update exposing (update)
+module ProductLib.Update exposing (update)
 
-import Types exposing (..)
+import ProductLib.Types exposing (..)
 
 
 update : Msg -> Model -> Model

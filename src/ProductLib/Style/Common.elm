@@ -1,4 +1,4 @@
-module Css.Common exposing (..)
+module ProductLib.Style.Common exposing (..)
 
 import Css exposing (..)
 import Html.CssHelpers

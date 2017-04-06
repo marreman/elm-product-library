@@ -1,10 +1,10 @@
-module View.Modal exposing (view, style)
+module ProductLib.View.Modal exposing (view, style)
 
 import Css exposing (..)
-import Css.Common exposing (cls)
 import Html exposing (..)
 import Html.Events exposing (onClick)
-import Types exposing (..)
+import ProductLib.Style.Common exposing (cls)
+import ProductLib.Types exposing (..)
 
 
 type CssClasses

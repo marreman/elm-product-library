@@ -1,7 +1,7 @@
 port module Stylesheets exposing (..)
 
 import Css.File exposing (CssFileStructure, CssCompilerProgram)
-import Css.Main
+import ProductLib.Style.Main
 
 
 port files : CssFileStructure -> Cmd msg
@@ -10,7 +10,7 @@ port files : CssFileStructure -> Cmd msg
 fileStructure : CssFileStructure
 fileStructure =
     Css.File.toFileStructure
-        [ ( "main.css", Css.File.compile [ Css.Main.css ] ) ]
+        [ ( "main.css", Css.File.compile [ ProductLib.Style.Main.css ] ) ]
 
 
 main : CssCompilerProgram

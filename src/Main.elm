@@ -1,16 +1,17 @@
 module Main exposing (..)
 
 import Html
-import Types exposing (..)
-import Update
-import View
+import ProductLib.Types exposing (..)
+import ProductLib.Update
+import ProductLib.View
 
 
+main : Program Never Model Msg
 main =
     Html.beginnerProgram
         { model = init
-        , update = Update.update
-        , view = View.view
+        , update = ProductLib.Update.update
+        , view = ProductLib.View.view
         }
 
 

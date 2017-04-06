@@ -1,13 +1,12 @@
-module View exposing (view)
+module ProductLib.View exposing (view)
 
 import Html exposing (..)
-import Html.CssHelpers
 import Html.Attributes exposing (src)
 import Html.Events exposing (..)
-import Types exposing (..)
-import Css.Common exposing (cls)
-import Css.Global exposing (..)
-import View.Modal
+import ProductLib.Style.Common exposing (cls)
+import ProductLib.Style.Global exposing (..)
+import ProductLib.Types exposing (..)
+import ProductLib.View.Modal as Modal
 
 
 view : Model -> Html Msg
@@ -18,7 +17,7 @@ view model =
             , viewBody model
             ]
         , if model.isModalOpen then
-            View.Modal.view
+            Modal.view
           else
             text ""
         ]

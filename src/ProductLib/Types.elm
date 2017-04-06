@@ -1,4 +1,4 @@
-module Types exposing (..)
+module ProductLib.Types exposing (..)
 
 
 type alias Model =
