@@ -5,34 +5,36 @@ import Html.CssHelpers
 import Html.Attributes exposing (src)
 import Html.Events exposing (..)
 import Types exposing (..)
-import Styles exposing (..)
-
-
-{ id, class, classList } =
-    Html.CssHelpers.withNamespace Styles.ns
+import Css.Common exposing (cls)
+import Css.Global exposing (..)
+import View.Modal
 
 
 view : Model -> Html Msg
 view model =
-    div [ class [ Container ] ]
-        [ div [ class [ Library ] ]
+    div [ cls Container ]
+        [ div [ cls Library ]
             [ viewHeader
             , viewBody model
             ]
+        , if model.isModalOpen then
+            View.Modal.view
+          else
+            text ""
         ]
 
 
 viewHeader : Html Msg
 viewHeader =
-    div [ class [ Header ] ]
+    div [ cls Header ]
         [ h1 [] [ text "Product Library" ]
-        , button [] [ text "Create product" ]
+        , button [ onClick NewProduct ] [ text "Create product" ]
         ]
 
 
 viewBody : Model -> Html Msg
 viewBody model =
-    div [ class [ Body ] ]
+    div [ cls Body ]
         [ table []
             [ thead []
                 [ th [] [ text "Image" ]
@@ -47,7 +49,7 @@ viewBody model =
 
 viewProduct : Product -> Html Msg
 viewProduct product =
-    tr [ class [ ProductRow ] ]
+    tr [ cls ProductRow ]
         [ td [] [ viewProductImage ]
         , td [] [ text product.name ]
         , td [] [ text <| toString product.price ]
@@ -59,6 +61,6 @@ viewProductImage : Html Msg
 viewProductImage =
     img
         [ src "http://0x0800.github.io/2048-CUPCAKES/style/img/1024.jpg"
-        , class [ ProductRowImage ]
+        , cls ProductRowImage
         ]
         []

@@ -17,10 +17,11 @@ main =
 init : Model
 init =
     { products =
-        [ Product "1" "Chocolate cupcake" 7.90
-        , Product "2" "Strawberry cupcake" 13.90
-        , Product "3" "Raspberry cupcake" 5.50
-        , Product "4" "Healty cupcake" 12.50
+        [ Product "1" "Chocolate cupcake" 7.9
+        , Product "2" "Strawberry cupcake" 13.9
+        , Product "3" "Raspberry cupcake" 5.5
+        , Product "4" "Healty cupcake" 12.5
         ]
     , newProductText = ""
+    , isModalOpen = False
     }

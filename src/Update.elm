@@ -15,5 +15,10 @@ update msg model =
                 , newProductText = ""
             }
 
+        NewProduct ->
+            { model
+                | isModalOpen = True
+            }
+
         NoOp ->
             model

@@ -4,6 +4,7 @@ module Types exposing (..)
 type alias Model =
     { products : List Product
     , newProductText : String
+    , isModalOpen : Bool
     }
 
 
@@ -18,3 +19,4 @@ type Msg
     = NoOp
     | NewProductText String
     | Create
+    | NewProduct
