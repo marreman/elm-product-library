@@ -1,12 +1,21 @@
 module Main exposing (..)
 
 import Html
-import ProductLibrary
+import Types exposing (..)
+import Update
+import View
 
 
 main =
     Html.beginnerProgram
-        { model = ProductLibrary.model
-        , update = ProductLibrary.update
-        , view = ProductLibrary.view
+        { model = init
+        , update = Update.update
+        , view = View.view
         }
+
+
+init : Model
+init =
+    { products = []
+    , newProductText = ""
+    }
