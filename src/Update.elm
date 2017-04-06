@@ -11,7 +11,7 @@ update msg model =
 
         Create ->
             { model
-                | products = (Product "1" model.newProductText) :: model.products
+                | products = (Product "1" model.newProductText 0.0) :: model.products
                 , newProductText = ""
             }
 

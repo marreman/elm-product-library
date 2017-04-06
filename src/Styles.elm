@@ -1,7 +1,7 @@
 module Styles exposing (..)
 
 import Css exposing (..)
-import Css.Elements exposing (body, h1, button)
+import Css.Elements exposing (body, h1, button, table, td)
 import Css.Namespace exposing (namespace)
 
 
@@ -10,6 +10,8 @@ type CssClasses
     | Library
     | Header
     | Body
+    | ProductRow
+    | ProductRowImage
 
 
 ns =
@@ -49,6 +51,15 @@ css =
             , boxShadow4 (px 0) (px 1) (px 3) (rgba 0 0 0 0.35)
             , color colors.white
             ]
+        , Css.Elements.table
+            [ width (pct 100) ]
+        , Css.Elements.th
+            [ textAlign left
+            , fontSize (px 13)
+            , textTransform uppercase
+            , opacity (num 0.4)
+            , padding2 (px 10) (px 20)
+            ]
         , class Container
             [ maxWidth (px 1340)
             , margin auto
@@ -73,5 +84,18 @@ css =
             ]
         , class Body
             [ padding2 (px 20) (px 30)
+            ]
+        , class ProductRow
+            [ fontWeight bold
+            , children
+                [ td
+                    [ borderTop3 (px 1) solid colors.lightGrey
+                    , padding2 (px 10) (px 20)
+                    ]
+                ]
+            ]
+        , class ProductRowImage
+            [ width (px 60)
+            , margin2 (px 10) zero
             ]
         ]

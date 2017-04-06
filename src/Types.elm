@@ -10,6 +10,7 @@ type alias Model =
 type alias Product =
     { id : String
     , name : String
+    , price : Float
     }
 
 
