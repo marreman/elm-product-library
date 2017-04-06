@@ -13,4 +13,21 @@ import Styles exposing (..)
 
 view : Model -> Html Msg
 view model =
-    div [ class [ Container ] ] [ Html.text "test" ]
+    div [ class [ Container ] ]
+        [ div [ class [ Library ] ]
+            [ viewHeader
+            , viewBody
+            ]
+        ]
+
+
+viewHeader : Html Msg
+viewHeader =
+    div [ class [ Header ] ]
+        [ text "Product Library" ]
+
+
+viewBody : Html Msg
+viewBody =
+    div [ class [ Body ] ]
+        [ text "..." ]
