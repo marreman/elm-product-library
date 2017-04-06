@@ -24,7 +24,9 @@ view model =
 viewHeader : Html Msg
 viewHeader =
     div [ class [ Header ] ]
-        [ text "Product Library" ]
+        [ h1 [] [ text "Product Library" ]
+        , button [] [ text "Create product" ]
+        ]
 
 
 viewBody : Html Msg
