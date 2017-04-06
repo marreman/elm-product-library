@@ -4,12 +4,12 @@ import Css exposing (..)
 import Html.CssHelpers
 
 
-ns =
+namespace =
     "iz_"
 
 
 helpers =
-    Html.CssHelpers.withNamespace ns
+    Html.CssHelpers.withNamespace namespace
 
 
 cls class =

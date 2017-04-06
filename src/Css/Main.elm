@@ -8,8 +8,8 @@ import View.Modal
 
 
 css =
-    (stylesheet << namespace Css.Common.ns) <|
+    (stylesheet << namespace Css.Common.namespace) <|
         List.concat
-            [ Css.Global.css
-            , View.Modal.css
+            [ Css.Global.style
+            , View.Modal.style
             ]

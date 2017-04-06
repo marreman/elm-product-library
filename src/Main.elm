@@ -22,6 +22,5 @@ init =
         , Product "3" "Raspberry cupcake" 5.5
         , Product "4" "Healty cupcake" 12.5
         ]
-    , newProductText = ""
     , isModalOpen = False
     }

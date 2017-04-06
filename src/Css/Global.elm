@@ -14,7 +14,8 @@ type CssClasses
     | ProductRowImage
 
 
-css =
+style : List Snippet
+style =
     [ Elements.body
         [ backgroundColor colors.lightGrey
         , margin zero

@@ -6,19 +6,11 @@ import Types exposing (..)
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        NewProductText text ->
-            { model | newProductText = text }
-
-        Create ->
-            { model
-                | products = (Product "1" model.newProductText 0.0) :: model.products
-                , newProductText = ""
-            }
-
         NewProduct ->
-            { model
-                | isModalOpen = True
-            }
+            { model | isModalOpen = True }
+
+        CloseModal ->
+            { model | isModalOpen = False }
 
         NoOp ->
             model
