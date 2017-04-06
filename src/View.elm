@@ -1,11 +1,16 @@
 module View exposing (view)
 
 import Html exposing (..)
-import Html.Attributes
+import Html.CssHelpers
 import Html.Events exposing (..)
 import Types exposing (..)
+import Styles exposing (..)
+
+
+{ id, class, classList } =
+    Html.CssHelpers.withNamespace Styles.ns
 
 
 view : Model -> Html Msg
 view model =
-    div [] [ Html.text "test" ]
+    div [ class [ Container ] ] [ Html.text "test" ]
