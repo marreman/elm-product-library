@@ -22,7 +22,7 @@ type CssClasses
 
 
 ( style, local ) =
-    css "main" <|
+    css "ProductLib.View" <|
         [ class Container
             [ maxWidth (px 1340)
             , margin auto

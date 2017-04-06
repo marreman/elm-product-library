@@ -8,7 +8,8 @@ import ProductLib.Types exposing (..)
 
 
 type CssClasses
-    = Container
+    = Fullscreen
+    | Container
     | Overlay
     | Modal
     | TextField
@@ -17,9 +18,21 @@ type CssClasses
 
 
 ( style, local ) =
-    css "modal" <|
-        [ class Container overlay
-        , class Overlay <| overlay ++ [ backgroundColor (rgba 0 0 0 0.5) ]
+    css "ProductLib.View.Modal" <|
+        [ class Fullscreen
+            [ position absolute
+            , top zero
+            , left zero
+            , width (pct 100)
+            , height (pct 100)
+            ]
+        , class Container
+            [ displayFlex
+            , justifyContent center
+            , alignItems center
+            ]
+        , class Overlay
+            [ backgroundColor (rgba 0 0 0 0.5) ]
         , class Modal
             [ backgroundColor (rgb 255 255 255)
             , width (px 500)
@@ -36,22 +49,10 @@ type CssClasses
         ]
 
 
-overlay =
-    [ position absolute
-    , displayFlex
-    , justifyContent center
-    , alignItems center
-    , top zero
-    , left zero
-    , width (pct 100)
-    , height (pct 100)
-    ]
-
-
 view : Html Msg
 view =
-    div [ local.class [ Container ] ]
-        [ div [ local.class [ Overlay ], onClick CloseModal ] []
+    div [ local.class [ Fullscreen, Container ] ]
+        [ div [ local.class [ Fullscreen, Overlay ], onClick CloseModal ] []
         , div [ local.class [ Modal ] ]
             [ h2 [] [ Html.text "New product" ]
             , div []
