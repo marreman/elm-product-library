@@ -6,6 +6,9 @@ import Css exposing (..)
 colors =
     { lightGrey = hex "eceeef"
     , white = hex "ffffff"
+    , blue = rgb 27 160 227
+    , darkBlue = rgb 3 131 195
+    , darkerBlue = hex "0072ac"
     }
 
 

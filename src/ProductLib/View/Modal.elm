@@ -1,8 +1,9 @@
 module ProductLib.View.Modal exposing (view, style)
 
 import Css exposing (..)
+import Css.Elements as Element
 import Html exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
 import ProductLib.Style.Helpers exposing (css)
 import ProductLib.Types exposing (..)
 
@@ -42,9 +43,14 @@ type CssClasses
         , class TextField
             [ display block
             , marginBottom (px 20)
+            , children
+                [ Element.input
+                    [ width (pct 100) ]
+                ]
             ]
         , class TextFieldLabel
             [ display block
+            , marginBottom (px 10)
             ]
         ]
 
@@ -56,16 +62,17 @@ view =
         , div [ local.class [ Modal ] ]
             [ h2 [] [ Html.text "New product" ]
             , div []
-                [ viewInput "Name"
-                , viewInput "Price"
+                [ viewInput "name" "Name"
+                , viewInput "price" "Price"
+                , button [ onClick CreateNewProduct ] [ Html.text "Create" ]
                 ]
             ]
         ]
 
 
-viewInput : String -> Html Msg
-viewInput name =
+viewInput : String -> String -> Html Msg
+viewInput prop name =
     label [ local.class [ TextField ] ]
         [ strong [ local.class [ TextFieldLabel ] ] [ Html.text name ]
-        , input [] []
+        , input [ onInput <| UpdateNewProduct prop ] []
         ]

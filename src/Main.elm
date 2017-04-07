@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import Dict
 import Html
 import ProductLib.Types exposing (..)
 import ProductLib.Update
@@ -24,4 +25,5 @@ init =
         , Product "4" "Healty cupcake" 12.5
         ]
     , isModalOpen = True
+    , newProduct = Dict.empty
     }

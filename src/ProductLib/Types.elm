@@ -1,9 +1,12 @@
 module ProductLib.Types exposing (..)
 
+import Dict exposing (Dict)
+
 
 type alias Model =
     { products : List Product
     , isModalOpen : Bool
+    , newProduct : Dict String String
     }
 
 
@@ -17,4 +20,6 @@ type alias Product =
 type Msg
     = NoOp
     | NewProduct
+    | UpdateNewProduct String String
+    | CreateNewProduct
     | CloseModal
