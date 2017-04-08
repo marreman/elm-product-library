@@ -2,28 +2,13 @@ module Main exposing (..)
 
 import Dict
 import Html
-import ProductLib.Types exposing (..)
-import ProductLib.Update
-import ProductLib.View
+import ProductLib.Main
 
 
-main : Program Never Model Msg
+main : Program Never ProductLib.Main.Model ProductLib.Main.Msg
 main =
     Html.beginnerProgram
-        { model = init
-        , update = ProductLib.Update.update
-        , view = ProductLib.View.view
+        { model = ProductLib.Main.init
+        , update = ProductLib.Main.update
+        , view = ProductLib.Main.view
         }
-
-
-init : Model
-init =
-    { products =
-        [ Product "1" "Chocolate cupcake" 7.9
-        , Product "2" "Strawberry cupcake" 13.9
-        , Product "3" "Raspberry cupcake" 5.5
-        , Product "4" "Healty cupcake" 12.5
-        ]
-    , isModalOpen = True
-    , newProduct = Dict.empty
-    }

@@ -5,7 +5,7 @@
   "author": "Martin Liberg <martin.liberg@izettle.com>",
   "license": "MIT",
   "scripts": {
-    "start": "elm-live src/Main.elm --output=public/main.js --dir=public --before-build=./build-css",
+    "start": "elm-live src/Main.elm --output=public/main.js --dir=public --before-build=./build-css --debug",
     "build:css": "elm-css src/Stylesheets.elm --output=public"
   },
   "dependencies": {
