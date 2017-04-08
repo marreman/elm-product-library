@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "elm-live src/Main.elm --output=public/main.js --dir=public --before-build=./build-css --debug",
-    "build:css": "elm-css src/Stylesheets.elm --output=public"
+    "build:css": "elm-css src/Style.elm --module=Style --output=public"
   },
   "dependencies": {
     "elm-css": "^0.6.0",
