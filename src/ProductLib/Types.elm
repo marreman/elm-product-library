@@ -3,21 +3,31 @@ module ProductLib.Types exposing (..)
 
 type alias Model =
     { products : List Product
+    , formId : Int
     , formName : String
     , formPrice : String
     , isModalOpen : Bool
+    , editType : EditType
     }
 
 
 type alias Product =
-    { name : String
+    { id : Int
+    , name : String
     , price : Float
     }
 
 
+type EditType
+    = NewProduct
+    | ExistingProduct
+
+
 type Msg
-    = OpenModal
+    = New
     | Create
+    | Save
     | Cancel
+    | Edit Product
     | UpdateName String
     | UpdatePrice String
