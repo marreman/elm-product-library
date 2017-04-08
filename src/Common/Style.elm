@@ -1,8 +1,41 @@
-module ProductLib.Style.Global exposing (..)
+module Common.Style exposing (..)
 
 import Css exposing (..)
 import Css.Elements as Element exposing (..)
-import ProductLib.Style.Common exposing (colors, gradient)
+import Css.Namespace
+import Html.CssHelpers exposing (Namespace)
+
+
+-- HELPER FOR CREATING NAMESPACED STYLES
+
+
+css : String -> List Snippet -> ( List Snippet, Namespace String class id msg )
+css ns snippets =
+    ( Css.Namespace.namespace (ns ++ "__") snippets
+    , Html.CssHelpers.withNamespace (ns ++ "__")
+    )
+
+
+colors =
+    { lightGrey = hex "eceeef"
+    , white = hex "ffffff"
+    , blue = rgb 27 160 227
+    , darkBlue = rgb 3 131 195
+    , darkerBlue = hex "0072ac"
+    }
+
+
+gradient : Color -> Color -> Mixin
+gradient from to =
+    let
+        value =
+            from.value ++ ", " ++ to.value
+    in
+        property "background-image" <| "linear-gradient(" ++ value ++ ")"
+
+
+
+-- GLOBAL STYLES
 
 
 style : List Snippet

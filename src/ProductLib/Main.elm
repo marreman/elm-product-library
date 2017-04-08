@@ -5,8 +5,7 @@ import Css.Elements as Elements
 import Html exposing (..)
 import Html.Attributes as Attrs
 import Html.Events exposing (..)
-import ProductLib.Style.Common exposing (..)
-import ProductLib.Style.Helpers exposing (css)
+import Common.Style exposing (..)
 import ProductLib.List
 import ProductLib.Form
 

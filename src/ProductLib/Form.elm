@@ -15,7 +15,7 @@ import Css exposing (..)
 import Css.Elements as Element
 import Html exposing (..)
 import Html.Events exposing (onClick, onInput)
-import ProductLib.Style.Helpers exposing (css)
+import Common.Style exposing (css)
 
 
 -- MODEL
