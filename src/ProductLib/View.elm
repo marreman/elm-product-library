@@ -38,7 +38,7 @@ viewProducts products =
             [ th [] [ text "Image" ]
             , th [] [ text "Name" ]
             , th [] [ text "Price" ]
-            , th [] [ text "Edit" ]
+            , th [] []
             ]
         , tbody [] <| List.map viewProduct products
         ]

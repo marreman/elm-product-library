@@ -29,6 +29,8 @@ type Class
             ]
         , class Library
             [ backgroundColor colors.white
+            , borderRadius (px 3)
+            , marginTop (px 40)
             ]
         , class Header
             [ padding2 (px 20) (px 30)
@@ -86,6 +88,8 @@ type Class
                 [ Element.td
                     [ borderTop3 (px 1) solid colors.lightGrey
                     , padding2 (px 10) (px 20)
+                    , lastChild
+                        [ children [ everything [ float right ] ] ]
                     ]
                 ]
             ]
