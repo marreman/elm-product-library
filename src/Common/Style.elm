@@ -54,17 +54,6 @@ style =
         , margin zero
         , fontFamilies [ "Zent" ]
         ]
-    , button
-        [ gradient colors.blue colors.darkBlue
-        , fontFamilies [ "Zent" ]
-        , fontWeight bold
-        , fontSize (px 14)
-        , padding2 (px 12) (px 20)
-        , border3 (px 1) solid colors.darkerBlue
-        , borderRadius (px 3)
-        , boxShadow4 (px 0) (px 1) (px 3) (rgba 0 0 0 0.35)
-        , color colors.white
-        ]
     , input
         [ padding2 (px 15) (px 20)
         , fontSize (px 14)

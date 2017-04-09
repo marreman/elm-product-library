@@ -3,6 +3,7 @@ port module Style exposing (..)
 import Css
 import Css.File exposing (CssFileStructure, CssCompilerProgram)
 import Common.Style
+import Common.Button
 import ProductLib.Style
 
 
@@ -11,6 +12,7 @@ style =
     Css.stylesheet <|
         List.concat
             [ Common.Style.style
+            , Common.Button.style
             , ProductLib.Style.style
             ]
 

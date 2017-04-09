@@ -1,5 +1,6 @@
 module ProductLib.View exposing (view)
 
+import Common.Button as Button
 import Html exposing (..)
 import Html.Attributes exposing (src, value)
 import Html.Events exposing (onClick, onInput)
@@ -17,7 +18,7 @@ view model =
         [ div [ class Library ]
             [ div [ class Header ]
                 [ h1 [] [ text "Product Library" ]
-                , button [ onClick New ] [ text "Create product" ]
+                , Button.withIconAndText Button.Plus "Create product" New
                 ]
             , div [ class Body ]
                 [ viewProducts model.products
@@ -49,7 +50,7 @@ viewProduct product =
         [ td [] [ viewProductImage ]
         , td [] [ text product.name ]
         , td [] [ text <| toString product.price ]
-        , td [] [ button [ onClick (Edit product) ] [ text "Edit" ] ]
+        , td [] [ Button.withIcon Button.Pen (Edit product) ]
         ]
 
 
@@ -73,10 +74,10 @@ viewForm model =
                 , viewInput "Price" model.formPrice UpdatePrice
                 , case model.editType of
                     NewProduct ->
-                        button [ onClick Create ] [ text "Create" ]
+                        Button.withText "Create" Create
 
                     ExistingProduct ->
-                        button [ onClick Save ] [ text "Save" ]
+                        Button.withText "Save" Save
                 ]
             ]
         ]
