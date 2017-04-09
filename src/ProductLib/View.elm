@@ -1,21 +1,25 @@
 module ProductLib.View exposing (view)
 
 import Html exposing (..)
-import Html.Events exposing (onClick, onInput)
 import Html.Attributes exposing (src, value)
+import Html.Events exposing (onClick, onInput)
+import ProductLib.Style exposing (local, Class(..))
 import ProductLib.Types exposing (..)
-import ProductLib.Style exposing (..)
+
+
+{ class, classes } =
+    local
 
 
 view : Model -> Html Msg
 view model =
-    div [ local.class [ Container ] ]
-        [ div [ local.class [ Library ] ]
-            [ div [ local.class [ Header ] ]
-                [ h1 [] [ Html.text "Product Library" ]
-                , button [ onClick New ] [ Html.text "Create product" ]
+    div [ class Container ]
+        [ div [ class Library ]
+            [ div [ class Header ]
+                [ h1 [] [ text "Product Library" ]
+                , button [ onClick New ] [ text "Create product" ]
                 ]
-            , div [ local.class [ Body ] ]
+            , div [ class Body ]
                 [ viewProducts model.products
                 , if model.isModalOpen then
                     viewForm model
@@ -28,12 +32,12 @@ view model =
 
 viewProducts : List Product -> Html Msg
 viewProducts products =
-    Html.table []
+    table []
         [ thead []
-            [ th [] [ Html.text "Image" ]
-            , th [] [ Html.text "Name" ]
-            , th [] [ Html.text "Price" ]
-            , th [] [ Html.text "Edit" ]
+            [ th [] [ text "Image" ]
+            , th [] [ text "Name" ]
+            , th [] [ text "Price" ]
+            , th [] [ text "Edit" ]
             ]
         , tbody [] <| List.map viewProduct products
         ]
@@ -41,11 +45,11 @@ viewProducts products =
 
 viewProduct : Product -> Html Msg
 viewProduct product =
-    tr [ local.class [ ProductRow ] ]
+    tr [ class ProductRow ]
         [ td [] [ viewProductImage ]
-        , td [] [ Html.text product.name ]
-        , td [] [ Html.text <| toString product.price ]
-        , td [] [ button [ onClick (Edit product) ] [ Html.text "Edit" ] ]
+        , td [] [ text product.name ]
+        , td [] [ text <| toString product.price ]
+        , td [] [ button [ onClick (Edit product) ] [ text "Edit" ] ]
         ]
 
 
@@ -53,25 +57,26 @@ viewProductImage : Html Msg
 viewProductImage =
     img
         [ src "http://0x0800.github.io/2048-CUPCAKES/style/img/1024.jpg"
-        , local.class [ ProductRowImage ]
+        , class ProductRowImage
         ]
         []
 
 
 viewForm : Model -> Html Msg
 viewForm model =
-    div [ local.class [ Fullscreen, ProductsContainer ] ]
-        [ div [ local.class [ Fullscreen, Overlay ], onClick Cancel ] []
-        , div [ local.class [ Modal ] ]
-            [ h2 [] [ Html.text "New product" ]
+    div [ classes [ Fullscreen, ProductsContainer ] ]
+        [ div [ classes [ Fullscreen, Overlay ], onClick Cancel ] []
+        , div [ class Modal ]
+            [ h2 [] [ text "New product" ]
             , div []
                 [ viewInput "Name" model.formName UpdateName
                 , viewInput "Price" model.formPrice UpdatePrice
                 , case model.editType of
                     NewProduct ->
-                        button [ onClick Create ] [ Html.text "Create" ]
+                        button [ onClick Create ] [ text "Create" ]
+
                     ExistingProduct ->
-                        button [ onClick Save ] [ Html.text "Save" ]
+                        button [ onClick Save ] [ text "Save" ]
                 ]
             ]
         ]
@@ -79,7 +84,7 @@ viewForm model =
 
 viewInput : String -> String -> (String -> Msg) -> Html Msg
 viewInput name val msg =
-    label [ local.class [ TextField ] ]
-        [ strong [ local.class [ TextFieldLabel ] ] [ Html.text name ]
+    label [ class TextField ]
+        [ strong [ class TextFieldLabel ] [ text name ]
         , input [ onInput msg, value val ] []
         ]

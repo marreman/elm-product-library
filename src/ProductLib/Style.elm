@@ -5,7 +5,7 @@ import Css.Elements as Element
 import Common.Style exposing (css, colors)
 
 
-type CssClasses
+type Class
     = Container
     | Library
     | Header

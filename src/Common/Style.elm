@@ -9,11 +9,18 @@ import Html.CssHelpers exposing (Namespace)
 -- HELPER FOR CREATING NAMESPACED STYLES
 
 
-css : String -> List Snippet -> ( List Snippet, Namespace String class id msg )
 css ns snippets =
-    ( Css.Namespace.namespace (ns ++ "__") snippets
-    , Html.CssHelpers.withNamespace (ns ++ "__")
-    )
+    let
+        helpers =
+            Html.CssHelpers.withNamespace (ns ++ "__")
+    in
+        ( Css.Namespace.namespace (ns ++ "__") snippets
+        , { class = \cls -> helpers.class [ cls ]
+          , classes = helpers.class
+          , classList = helpers.classList
+          , id = helpers.id
+          }
+        )
 
 
 colors =
