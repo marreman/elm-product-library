@@ -1,0 +1,14 @@
+{
+  "name": "elm-product-library",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:marreman/elm-product-library.git",
+  "author": "Martin Liberg <martin.liberg@izettle.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "elm-live src/Main.elm --output=public/elm.js --dir=public"
+  },
+  "devDependencies": {
+    "elm-live": "^2.7.4"
+  }
+}
