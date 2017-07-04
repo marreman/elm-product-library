@@ -41,4 +41,26 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    main_ [] [ text (toString model) ]
+    main_ []
+        [ header []
+            [ h1 [] [ text "Products" ]
+            , button [] [ text "Add product" ]
+            ]
+        , table []
+            [ thead []
+                [ tr []
+                    [ th [] [ text "Name" ]
+                    , th [] [ text "Price" ]
+                    ]
+                ]
+            , tbody [] <| List.map viewProduct model.products
+            ]
+        ]
+
+
+viewProduct : Product -> Html Msg
+viewProduct product =
+    tr []
+        [ td [] [ text product.name ]
+        , td [] [ text <| toString product.price ]
+        ]
