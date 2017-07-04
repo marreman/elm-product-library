@@ -7810,10 +7810,26 @@ var _user$project$Main$update = F2(
 	function (msg, model) {
 		return model;
 	});
-var _user$project$Main$model = {};
+var _user$project$Main$Model = function (a) {
+	return {products: a};
+};
+var _user$project$Main$Product = F2(
+	function (a, b) {
+		return {name: a, price: b};
+	});
+var _user$project$Main$model = {
+	products: {
+		ctor: '::',
+		_0: A2(_user$project$Main$Product, 'Pie', 30.0),
+		_1: {
+			ctor: '::',
+			_0: A2(_user$project$Main$Product, 'Sliced Melon', 10.5),
+			_1: {ctor: '[]'}
+		}
+	}
+};
 var _user$project$Main$main = _elm_lang$html$Html$beginnerProgram(
 	{model: _user$project$Main$model, update: _user$project$Main$update, view: _user$project$Main$view})();
-var _user$project$Main$Model = {};
 var _user$project$Main$Noop = {ctor: 'Noop'};
 
 var Elm = {};

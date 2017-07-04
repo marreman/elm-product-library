@@ -12,12 +12,22 @@ main =
 
 
 type alias Model =
-    {}
+    { products : List Product }
+
+
+type alias Product =
+    { name : String
+    , price : Float
+    }
 
 
 model : Model
 model =
-    {}
+    { products =
+        [ Product "Pie" 30.0
+        , Product "Sliced Melon" 10.5
+        ]
+    }
 
 
 type Msg

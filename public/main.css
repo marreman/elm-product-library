@@ -1,0 +1,19 @@
+html,
+body {
+  background-color: lightgrey;
+  height: 100%;
+}
+
+body {
+  font-family: Zent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  background-color: white;
+  border-radius: 6px;
+  width: 600px;
+  padding: 30px;
+}
