@@ -1,6 +1,8 @@
 module Main exposing (main)
 
 import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 
 
 main =
@@ -12,7 +14,9 @@ main =
 
 
 type alias Model =
-    { products : List Product }
+    { products : List Product
+    , productModalIsOpen : Bool
+    }
 
 
 type alias Product =
@@ -27,16 +31,17 @@ model =
         [ Product "Pie" 30.0
         , Product "Sliced Melon" 10.5
         ]
+    , productModalIsOpen = False
     }
 
 
 type Msg
-    = Noop
+    = OpenProductModal
 
 
 update : Msg -> Model -> Model
 update msg model =
-    model
+    { model | productModalIsOpen = True }
 
 
 view : Model -> Html Msg
@@ -44,7 +49,7 @@ view model =
     main_ []
         [ header []
             [ h1 [] [ text "Products" ]
-            , button [] [ text "Add product" ]
+            , button [ onClick OpenProductModal ] [ text "Add product" ]
             ]
         , table []
             [ thead []
@@ -55,6 +60,17 @@ view model =
                 ]
             , tbody [] <| List.map viewProduct model.products
             ]
+        , if model.productModalIsOpen then
+            viewModal
+          else
+            text ""
+        ]
+
+
+viewModal : Html Msg
+viewModal =
+    div [ class "overlay" ]
+        [ div [ class "modal" ] [ h2 [] [ text "New Product" ] ]
         ]
 
 
