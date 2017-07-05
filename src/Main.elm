@@ -75,8 +75,9 @@ view model =
 
 viewModal : Html Msg
 viewModal =
-    div [ class "overlay", onClick CloseProductModal ]
-        [ div [ class "modal" ] [ h2 [] [ text "New Product" ] ]
+    div []
+        [ div [ class "overlay", onClick CloseProductModal ] []
+        , div [ class "modal" ] [ h2 [] [ text "New Product" ] ]
         ]
 
 
