@@ -16,6 +16,8 @@ main =
 type alias Model =
     { products : List Product
     , productModalIsOpen : Bool
+    , productName : String
+    , productPrice : String
     }
 
 
@@ -32,12 +34,16 @@ model =
         , Product "Sliced Melon" 10.5
         ]
     , productModalIsOpen = False
+    , productName = ""
+    , productPrice = ""
     }
 
 
 type Msg
     = OpenProductModal
     | CloseProductModal
+    | UpdateProductName String
+    | UpdateProductPrice String
 
 
 update : Msg -> Model -> Model
@@ -48,6 +54,12 @@ update msg model =
 
         CloseProductModal ->
             { model | productModalIsOpen = False }
+
+        UpdateProductName newName ->
+            { model | productName = newName }
+
+        UpdateProductPrice newPrice ->
+            { model | productPrice = newPrice }
 
 
 view : Model -> Html Msg
@@ -93,11 +105,11 @@ viewModal =
             , main_ []
                 [ label []
                     [ text "Name"
-                    , input [ type_ "text" ] []
+                    , input [ type_ "text", onInput UpdateProductName ] []
                     ]
                 , label []
                     [ text "Price"
-                    , input [ type_ "text" ] []
+                    , input [ type_ "text", onInput UpdateProductPrice ] []
                     ]
                 ]
             ]
