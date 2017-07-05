@@ -24,6 +24,12 @@ type alias Model =
 
 type alias Product =
     { name : String
+    , variants : List Variant
+    }
+
+
+type alias Variant =
+    { name : String
     , price : Float
     }
 
@@ -31,8 +37,10 @@ type alias Product =
 model : Model
 model =
     { products =
-        [ Product "Pie" 30.0
-        , Product "Sliced Melon" 10.5
+        [ Product "Pie"
+            [ Variant "Blueberry" 10.0
+            , Variant "Lemon" 20.0
+            ]
         ]
     , productModalIsOpen = False
     , productName = ""
@@ -74,7 +82,7 @@ update msg model =
                     }
             in
                 { model
-                    | products = newProduct :: model.products
+                    | products = model.products
                     , productModalIsOpen = False
                 }
 
@@ -104,10 +112,25 @@ view model =
 
 viewProduct : Product -> Html Msg
 viewProduct product =
-    tr []
-        [ td [] [ text product.name ]
-        , td [] [ text <| toString product.price ]
-        ]
+    let
+        maxPrice =
+            product.variants
+                |> List.map .price
+                |> List.maximum
+                |> Maybe.map toString
+                |> Maybe.withDefault ""
+
+        minPrice =
+            product.variants
+                |> List.map .price
+                |> List.minimum
+                |> Maybe.map toString
+                |> Maybe.withDefault ""
+    in
+        tr []
+            [ td [] [ text product.name ]
+            , td [] [ text <| minPrice ++ " - " ++ maxPrice ]
+            ]
 
 
 viewModal : Html Msg
