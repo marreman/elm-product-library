@@ -44,6 +44,7 @@ type Msg
     | CloseProductModal
     | UpdateProductName String
     | UpdateProductPrice String
+    | CreateNewProduct
 
 
 update : Msg -> Model -> Model
@@ -60,6 +61,21 @@ update msg model =
 
         UpdateProductPrice newPrice ->
             { model | productPrice = newPrice }
+
+        CreateNewProduct ->
+            let
+                newProduct =
+                    { name = model.productName
+                    , price =
+                        model.productPrice
+                            |> String.toFloat
+                            |> Result.withDefault 0
+                    }
+            in
+                { model
+                    | products = newProduct :: model.products
+                    , productModalIsOpen = False
+                }
 
 
 view : Model -> Html Msg
@@ -102,7 +118,7 @@ viewModal =
                 [ h2 [] [ text "New Product" ]
                 , button [ onClick CloseProductModal ] [ text "×" ]
                 ]
-            , main_ []
+            , main_ [ class "modal-body" ]
                 [ label []
                     [ text "Name"
                     , input [ type_ "text", onInput UpdateProductName ] []
@@ -112,5 +128,7 @@ viewModal =
                     , input [ type_ "text", onInput UpdateProductPrice ] []
                     ]
                 ]
+            , footer []
+                [ button [ onClick CreateNewProduct ] [ text "Create" ] ]
             ]
         ]
