@@ -16,7 +16,7 @@ main =
 
 type alias Model =
     { products : List Product
-    , productModalIsOpen : Bool
+    , modalIsOpen : Bool
     , productName : String
     , productPrice : String
     }
@@ -45,7 +45,7 @@ model =
             [ Variant "" 10.0
             ]
         ]
-    , productModalIsOpen = False
+    , modalIsOpen = False
     , productName = ""
     , productPrice = ""
     }
@@ -63,10 +63,10 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         OpenProductModal ->
-            { model | productModalIsOpen = True }
+            { model | modalIsOpen = True }
 
         CloseProductModal ->
-            { model | productModalIsOpen = False }
+            { model | modalIsOpen = False }
 
         UpdateProductName newName ->
             { model | productName = newName }
@@ -86,7 +86,7 @@ update msg model =
             in
                 { model
                     | products = model.products
-                    , productModalIsOpen = False
+                    , modalIsOpen = False
                 }
 
 
@@ -107,7 +107,7 @@ view model =
                 ]
             , tbody [] <| List.map viewProduct model.products
             ]
-        , if model.productModalIsOpen then
+        , if model.modalIsOpen then
             viewModal
           else
             text ""
