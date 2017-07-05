@@ -11,7 +11,7 @@ body {
   align-items: center;
 }
 
-main {
+.main {
   background-color: white;
   border-radius: 6px;
   width: 600px;

@@ -52,7 +52,7 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    main_ []
+    main_ [ class "main" ]
         [ header []
             [ h1 [] [ text "Products" ]
             , button [ onClick OpenProductModal ] [ text "Add product" ]
@@ -89,6 +89,16 @@ viewModal =
             [ header []
                 [ h2 [] [ text "New Product" ]
                 , button [ onClick CloseProductModal ] [ text "×" ]
+                ]
+            , main_ []
+                [ label []
+                    [ text "Name"
+                    , input [ type_ "text" ] []
+                    ]
+                , label []
+                    [ text "Price"
+                    , input [ type_ "text" ] []
+                    ]
                 ]
             ]
         ]
