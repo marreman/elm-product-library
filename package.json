@@ -6,7 +6,7 @@
   "author": "Martin Liberg <martin.liberg@izettle.com>",
   "license": "MIT",
   "scripts": {
-    "start": "elm-live src/Main.elm --output=public/elm.js --dir=public"
+    "start": "elm-live src/Main.elm --output=public/elm.js --dir=public --debug"
   },
   "devDependencies": {
     "elm-live": "^2.7.4"
