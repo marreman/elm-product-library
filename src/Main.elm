@@ -117,7 +117,7 @@ viewModal =
         , div [ class "modal" ]
             [ header []
                 [ h2 [] [ text "New Product" ]
-                , button [ onClick CloseProductModal ] [ text "×" ]
+                , button [ class "modal-close", onClick CloseProductModal ] [ text "×" ]
                 ]
             , main_ [ class "modal-body" ]
                 [ Html.form [ onSubmit CreateNewProduct ]

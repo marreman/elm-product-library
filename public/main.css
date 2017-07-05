@@ -26,6 +26,7 @@ body {
 
 header {
   display: flex;
+  align-items: center;
   margin-bottom: 10px;
 }
 
@@ -87,6 +88,18 @@ td:last-child {
   width: 400px;
   padding: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  border: 0;
+  background: none;
+  line-height: 1;
+  font-size: 30px;
+  cursor: pointer;
 }
 
 .modal-body {
