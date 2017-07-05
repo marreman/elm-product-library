@@ -85,5 +85,10 @@ viewModal : Html Msg
 viewModal =
     div []
         [ div [ class "overlay", onClick CloseProductModal ] []
-        , div [ class "modal" ] [ h2 [] [ text "New Product" ] ]
+        , div [ class "modal" ]
+            [ header []
+                [ h2 [] [ text "New Product" ]
+                , button [ onClick CloseProductModal ] [ text "×" ]
+                ]
+            ]
         ]
