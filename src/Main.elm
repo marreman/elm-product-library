@@ -73,17 +73,17 @@ view model =
         ]
 
 
-viewModal : Html Msg
-viewModal =
-    div []
-        [ div [ class "overlay", onClick CloseProductModal ] []
-        , div [ class "modal" ] [ h2 [] [ text "New Product" ] ]
-        ]
-
-
 viewProduct : Product -> Html Msg
 viewProduct product =
     tr []
         [ td [] [ text product.name ]
         , td [] [ text <| toString product.price ]
+        ]
+
+
+viewModal : Html Msg
+viewModal =
+    div []
+        [ div [ class "overlay", onClick CloseProductModal ] []
+        , div [ class "modal" ] [ h2 [] [ text "New Product" ] ]
         ]
