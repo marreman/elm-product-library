@@ -41,6 +41,9 @@ model =
             [ Variant "Blueberry" 10.0
             , Variant "Lemon" 20.0
             ]
+        , Product "Juice"
+            [ Variant "" 10.0
+            ]
         ]
     , productModalIsOpen = False
     , productName = ""
@@ -126,10 +129,16 @@ viewProduct product =
                 |> List.minimum
                 |> Maybe.map toString
                 |> Maybe.withDefault ""
+
+        price =
+            if List.length product.variants > 1 then
+                minPrice ++ " - " ++ maxPrice
+            else
+                maxPrice
     in
         tr []
             [ td [] [ text product.name ]
-            , td [] [ text <| minPrice ++ " - " ++ maxPrice ]
+            , td [] [ text <| price ]
             ]
 
 
