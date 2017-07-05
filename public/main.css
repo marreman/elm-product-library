@@ -1,3 +1,8 @@
+:root {
+  --button-green-primary: rgb(107, 209, 142);
+  --button-green-secondary: rgba(107, 209, 142, 0.2);
+}
+
 html,
 body {
   background-color: lightgrey;
@@ -28,6 +33,18 @@ h1,
 h2 {
   margin: 0;
   font-size: 24px;
+}
+
+.button {
+  font-family: Zent;
+  border: 1px solid var(--button-green-primary);
+  background-color: var(--button-green-secondary);
+  color: var(--button-green-primary);
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 11px 20px 10px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 header button {
