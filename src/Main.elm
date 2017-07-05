@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
+main : Program Never Model Msg
 main =
     beginnerProgram
         { model = model
