@@ -140,7 +140,7 @@ viewModal =
                             ]
                             []
                         ]
-                    , footer []
+                    , footer [ class "modal-footer" ]
                         [ button [ class "button", type_ "submit" ] [ text "Create" ] ]
                     ]
                 ]

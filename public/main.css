@@ -3,6 +3,10 @@
   --button-green-secondary: rgba(107, 209, 142, 0.2);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   background-color: lightgrey;
@@ -15,6 +19,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+input {
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background: #fafafa;
 }
 
 .main {
@@ -102,6 +114,24 @@ td:last-child {
   cursor: pointer;
 }
 
-.modal-body {
-  margin-bottom: 20px;
+.modal-body form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.modal-body label {
+  width: 50%;
+}
+
+.modal-body label:first-child {
+  padding-right: 5px;
+}
+
+.modal-body input {
+  width: 100%;
+}
+
+.modal-footer {
+  width: 100%;
+  margin-top: 20px;
 }
