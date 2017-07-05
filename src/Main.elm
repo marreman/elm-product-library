@@ -37,11 +37,17 @@ model =
 
 type Msg
     = OpenProductModal
+    | CloseProductModal
 
 
 update : Msg -> Model -> Model
 update msg model =
-    { model | productModalIsOpen = True }
+    case msg of
+        OpenProductModal ->
+            { model | productModalIsOpen = True }
+
+        CloseProductModal ->
+            { model | productModalIsOpen = False }
 
 
 view : Model -> Html Msg
@@ -69,7 +75,7 @@ view model =
 
 viewModal : Html Msg
 viewModal =
-    div [ class "overlay" ]
+    div [ class "overlay", onClick CloseProductModal ]
         [ div [ class "modal" ] [ h2 [] [ text "New Product" ] ]
         ]
 
