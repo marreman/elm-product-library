@@ -101,6 +101,7 @@ view model =
             [ thead []
                 [ tr []
                     [ th [] [ text "Name" ]
+                    , th [] [ text "Variants" ]
                     , th [] [ text "Price" ]
                     ]
                 ]
@@ -130,15 +131,25 @@ viewProduct product =
                 |> Maybe.map toString
                 |> Maybe.withDefault ""
 
+        numberOfVariants =
+            List.length product.variants
+
         price =
-            if List.length product.variants > 1 then
+            if numberOfVariants > 1 then
                 minPrice ++ " - " ++ maxPrice
             else
                 maxPrice
+
+        variants =
+            if numberOfVariants > 1 then
+                toString numberOfVariants
+            else
+                ""
     in
         tr []
             [ td [] [ text product.name ]
-            , td [] [ text <| price ]
+            , td [] [ text variants ]
+            , td [] [ text price ]
             ]
 
 
