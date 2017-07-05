@@ -119,16 +119,29 @@ viewModal =
                 , button [ onClick CloseProductModal ] [ text "×" ]
                 ]
             , main_ [ class "modal-body" ]
-                [ label []
-                    [ text "Name"
-                    , input [ type_ "text", onInput UpdateProductName ] []
-                    ]
-                , label []
-                    [ text "Price"
-                    , input [ type_ "text", onInput UpdateProductPrice ] []
+                [ Html.form [ onSubmit CreateNewProduct ]
+                    [ label []
+                        [ text "Name"
+                        , input
+                            [ type_ "text"
+                            , required True
+                            , onInput UpdateProductName
+                            ]
+                            []
+                        ]
+                    , label []
+                        [ text "Price"
+                        , input
+                            [ type_ "number"
+                            , required True
+                            , Html.Attributes.min "0"
+                            , onInput UpdateProductPrice
+                            ]
+                            []
+                        ]
+                    , footer []
+                        [ input [ type_ "submit" ] [ text "Create" ] ]
                     ]
                 ]
-            , footer []
-                [ button [ onClick CreateNewProduct ] [ text "Create" ] ]
             ]
         ]
