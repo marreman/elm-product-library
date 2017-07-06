@@ -4,6 +4,17 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Product exposing (..)
+import Price
+
+
+toCurrency : Float -> String
+toCurrency =
+    Price.toCurrency Price.EUR
+
+
+rangeToCurrency : ( Float, Float ) -> String
+rangeToCurrency =
+    Price.rangeToCurrency Price.EUR
 
 
 main : Program Never Model Msg
@@ -94,14 +105,14 @@ viewProduct productType =
             tr []
                 [ td [] [ text product.name ]
                 , td [] [ text "" ]
-                , td [] [ text <| toString product.price ]
+                , td [] [ text <| toCurrency product.price ]
                 ]
 
         Group name products ->
             tr []
                 [ td [] [ text name ]
                 , td [] [ text <| toString <| Product.length products ]
-                , td [] [ text <| toString <| Product.priceRange products ]
+                , td [] [ text <| rangeToCurrency <| Product.priceRange products ]
                 ]
 
 
