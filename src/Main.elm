@@ -3,6 +3,7 @@ module Main exposing (main)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Product exposing (..)
 
 
 main : Program Never Model Msg
@@ -15,35 +16,23 @@ main =
 
 
 type alias Model =
-    { products : List Product
+    { products : List ProductType
     , modalIsOpen : Bool
     , productName : String
     , productPrice : String
     }
 
 
-type alias Product =
-    { name : String
-    , variants : List Variant
-    }
-
-
-type alias Variant =
-    { name : String
-    , price : Float
-    }
-
-
 model : Model
 model =
     { products =
-        [ Product "Pie"
-            [ Variant "Blueberry" 10.0
-            , Variant "Lemon" 20.0
-            ]
-        , Product "Juice"
-            [ Variant "" 10.0
-            ]
+        [ Product.single
+            (Product "Orange Juice" 10.0)
+        , Product.group
+            "Pies"
+            (Product "Blueberry" 9.0)
+            (Product "Blueberry" 11.0)
+            []
         ]
     , modalIsOpen = False
     , productName = ""
@@ -56,7 +45,6 @@ type Msg
     | CloseProductModal
     | UpdateProductName String
     | UpdateProductPrice String
-    | CreateNewProduct
 
 
 update : Msg -> Model -> Model
@@ -73,21 +61,6 @@ update msg model =
 
         UpdateProductPrice newPrice ->
             { model | productPrice = newPrice }
-
-        CreateNewProduct ->
-            let
-                newProduct =
-                    { name = model.productName
-                    , price =
-                        model.productPrice
-                            |> String.toFloat
-                            |> Result.withDefault 0
-                    }
-            in
-                { model
-                    | products = model.products
-                    , modalIsOpen = False
-                }
 
 
 view : Model -> Html Msg
@@ -114,43 +87,22 @@ view model =
         ]
 
 
-viewProduct : Product -> Html Msg
-viewProduct product =
-    let
-        maxPrice =
-            product.variants
-                |> List.map .price
-                |> List.maximum
-                |> Maybe.map toString
-                |> Maybe.withDefault ""
+viewProduct : ProductType -> Html Msg
+viewProduct productType =
+    case productType of
+        Single product ->
+            tr []
+                [ td [] [ text product.name ]
+                , td [] [ text "" ]
+                , td [] [ text <| toString product.price ]
+                ]
 
-        minPrice =
-            product.variants
-                |> List.map .price
-                |> List.minimum
-                |> Maybe.map toString
-                |> Maybe.withDefault ""
-
-        numberOfVariants =
-            List.length product.variants
-
-        price =
-            if numberOfVariants > 1 then
-                minPrice ++ " - " ++ maxPrice
-            else
-                maxPrice
-
-        variants =
-            if numberOfVariants > 1 then
-                toString numberOfVariants
-            else
-                ""
-    in
-        tr []
-            [ td [] [ text product.name ]
-            , td [] [ text variants ]
-            , td [] [ text price ]
-            ]
+        Group name products ->
+            tr []
+                [ td [] [ text name ]
+                , td [] [ text <| toString <| Product.length products ]
+                , td [] [ text <| toString <| Product.priceRange products ]
+                ]
 
 
 viewModal : Html Msg
@@ -163,7 +115,7 @@ viewModal =
                 , button [ class "modal-close", onClick CloseProductModal ] [ text "×" ]
                 ]
             , main_ [ class "modal-body" ]
-                [ Html.form [ onSubmit CreateNewProduct ]
+                [ Html.form []
                     [ label []
                         [ text "Name"
                         , input
