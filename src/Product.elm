@@ -1,5 +1,7 @@
 module Product exposing (..)
 
+import Compound exposing (Compound(..))
+
 
 type ProductType
     = Single Product
@@ -10,10 +12,6 @@ type alias Product =
     { name : String
     , price : Float
     }
-
-
-type Compound product
-    = Compound Product Product (List Product)
 
 
 single : Product -> ProductType
@@ -27,26 +25,21 @@ group name first second rest =
 
 
 length : Compound a -> Int
-length (Compound first second rest) =
-    List.length <| first :: second :: rest
+length =
+    Compound.length
 
 
-priceRange : Compound a -> ( Float, Float )
-priceRange (Compound first second rest) =
+priceRange : Compound Product -> ( Float, Float )
+priceRange compound =
     let
-        all =
-            first :: second :: rest
-
-        min =
-            all
+        prices =
+            Compound.toList compound
                 |> List.map .price
-                |> List.minimum
-                |> Maybe.withDefault 0
-
-        max =
-            all
-                |> List.map .price
-                |> List.maximum
-                |> Maybe.withDefault 0
     in
-        ( min, max )
+        ( prices
+            |> List.minimum
+            |> Maybe.withDefault 0
+        , prices
+            |> List.maximum
+            |> Maybe.withDefault 0
+        )
