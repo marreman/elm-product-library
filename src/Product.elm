@@ -54,3 +54,13 @@ priceRange compound =
             |> List.maximum
             |> Maybe.withDefault 0
         )
+
+
+openGroup : ProductType -> ProductType
+openGroup productType =
+    case productType of
+        Single _ ->
+            productType
+
+        Group description products ->
+            Group { description | isOpen = False } products

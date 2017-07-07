@@ -54,6 +54,7 @@ model =
 type Msg
     = OpenProductModal
     | CloseProductModal
+    | OpenGroup Int
     | UpdateProductName String
     | UpdateProductPrice String
 
@@ -66,6 +67,21 @@ update msg model =
 
         CloseProductModal ->
             { model | modalIsOpen = False }
+
+        OpenGroup id ->
+            { model
+                | products =
+                    List.map
+                        (\productType ->
+                            case productType of
+                                Single _ ->
+                                    productType
+
+                                Group { name, isOpen } products ->
+                                    Product.openGroup productType
+                        )
+                        model.products
+            }
 
         UpdateProductName newName ->
             { model | productName = newName }
@@ -114,7 +130,10 @@ viewProduct productType =
                 viewGroup =
                     [ tr [ class "row" ]
                         [ td [] [ text name ]
-                        , td [] [ text <| toString <| Product.length products ]
+                        , td []
+                            [ text <| toString <| Product.length products
+                            , button [ onClick <| OpenGroup 0 ] [ text "⬇" ]
+                            ]
                         , td [] [ text <| rangeToCurrency <| Product.priceRange products ]
                         ]
                     ]
