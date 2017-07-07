@@ -5,12 +5,18 @@ import Compound exposing (Compound(..))
 
 type ProductType
     = Single Product
-    | Group String (Compound Product)
+    | Group ProductGroup (Compound Product)
 
 
 type alias Product =
     { name : String
     , price : Float
+    }
+
+
+type alias ProductGroup =
+    { name : String
+    , isOpen : Bool
     }
 
 
@@ -21,12 +27,17 @@ single product =
 
 group : String -> Product -> Product -> List Product -> ProductType
 group name first second rest =
-    Group name <| Compound first second rest
+    Group (ProductGroup name False) <| Compound first second rest
 
 
 length : Compound a -> Int
 length =
     Compound.length
+
+
+toList : Compound a -> List a
+toList =
+    Compound.toList
 
 
 priceRange : Compound Product -> ( Float, Float )

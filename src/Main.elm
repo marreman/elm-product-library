@@ -42,7 +42,7 @@ model =
         , Product.group
             "Pies"
             (Product "Blueberry" 9.0)
-            (Product "Blueberry" 11.0)
+            (Product "Lemon" 11.0)
             []
         ]
     , modalIsOpen = False
@@ -83,13 +83,13 @@ view model =
             ]
         , table []
             [ thead []
-                [ tr []
+                [ tr [ class "row" ]
                     [ th [] [ text "Name" ]
                     , th [] [ text "Variants" ]
                     , th [] [ text "Price" ]
                     ]
                 ]
-            , tbody [] <| List.map viewProduct model.products
+            , tbody [] <| List.concatMap viewProduct model.products
             ]
         , if model.modalIsOpen then
             viewModal
@@ -98,22 +98,44 @@ view model =
         ]
 
 
-viewProduct : ProductType -> Html Msg
+viewProduct : ProductType -> List (Html Msg)
 viewProduct productType =
     case productType of
         Single product ->
-            tr []
+            [ tr [ class "row" ]
                 [ td [] [ text product.name ]
                 , td [] [ text "" ]
                 , td [] [ text <| toCurrency product.price ]
                 ]
+            ]
 
-        Group name products ->
-            tr []
-                [ td [] [ text name ]
-                , td [] [ text <| toString <| Product.length products ]
-                , td [] [ text <| rangeToCurrency <| Product.priceRange products ]
-                ]
+        Group { name, isOpen } products ->
+            let
+                viewGroup =
+                    [ tr [ class "row" ]
+                        [ td [] [ text name ]
+                        , td [] [ text <| toString <| Product.length products ]
+                        , td [] [ text <| rangeToCurrency <| Product.priceRange products ]
+                        ]
+                    ]
+
+                viewProducts =
+                    List.map
+                        (\product ->
+                            tr []
+                                [ td [] []
+                                , td [] [ text product.name ]
+                                , td [] [ text <| toCurrency product.price ]
+                                ]
+                        )
+                    <|
+                        Product.toList products
+            in
+                viewGroup
+                    ++ if isOpen then
+                        viewProducts
+                       else
+                        []
 
 
 viewModal : Html Msg
