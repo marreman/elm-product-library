@@ -75,22 +75,19 @@ update msg model =
             { model | modalIsOpen = False }
 
         ToggleGroup id ->
-            { model
-                | products =
-                    List.map
-                        (\productType ->
-                            case productType of
-                                Single _ ->
-                                    productType
+            let
+                updateProduct productType =
+                    case productType of
+                        Single _ ->
+                            productType
 
-                                Group info products ->
-                                    if info.id == id then
-                                        Product.toggleGroup productType
-                                    else
-                                        productType
-                        )
-                        model.products
-            }
+                        Group info products ->
+                            if info.id == id then
+                                Product.toggleGroup productType
+                            else
+                                productType
+            in
+                { model | products = List.map updateProduct model.products }
 
         UpdateProductName newName ->
             { model | productName = newName }
