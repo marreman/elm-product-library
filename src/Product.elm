@@ -3,12 +3,12 @@ module Product exposing (..)
 import Compound exposing (Compound(..))
 
 
-type ProductType
-    = Single Product
-    | Group GroupInfo (Compound Product)
+type Product
+    = Single ProductInfo
+    | Group GroupInfo (Compound ProductInfo)
 
 
-type alias Product =
+type alias ProductInfo =
     { name : String
     , price : Float
     }
@@ -21,12 +21,12 @@ type alias GroupInfo =
     }
 
 
-single : Product -> ProductType
+single : ProductInfo -> Product
 single product =
     Single product
 
 
-group : Int -> String -> Product -> Product -> List Product -> ProductType
+group : Int -> String -> ProductInfo -> ProductInfo -> List ProductInfo -> Product
 group id name first second rest =
     Group (GroupInfo id name False) <| Compound first second rest
 
@@ -41,7 +41,7 @@ toList =
     Compound.toList
 
 
-priceRange : Compound Product -> ( Float, Float )
+priceRange : Compound ProductInfo -> ( Float, Float )
 priceRange compound =
     let
         prices =
@@ -57,7 +57,7 @@ priceRange compound =
         )
 
 
-toggleGroup : ProductType -> ProductType
+toggleGroup : Product -> Product
 toggleGroup productType =
     case productType of
         Single _ ->

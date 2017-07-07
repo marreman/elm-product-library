@@ -27,7 +27,7 @@ main =
 
 
 type alias Model =
-    { products : List ProductType
+    { products : List Product
     , modalIsOpen : Bool
     , productName : String
     , productPrice : String
@@ -38,16 +38,16 @@ model : Model
 model =
     { products =
         [ Product.single
-            (Product "Orange Juice" 10.0)
+            (ProductInfo "Orange Juice" 10.0)
         , Product.group 1
             "Pies"
-            (Product "Blueberry" 9.0)
-            (Product "Lemon" 11.0)
+            (ProductInfo "Blueberry" 9.0)
+            (ProductInfo "Lemon" 11.0)
             []
         , Product.group 2
             "Animals"
-            (Product "Cat" 15.2)
-            (Product "Dog" 33.1)
+            (ProductInfo "Cat" 15.2)
+            (ProductInfo "Dog" 33.1)
             []
         ]
     , modalIsOpen = False
@@ -122,7 +122,7 @@ view model =
         ]
 
 
-viewProduct : ProductType -> List (Html Msg)
+viewProduct : Product -> List (Html Msg)
 viewProduct productType =
     case productType of
         Single product ->
