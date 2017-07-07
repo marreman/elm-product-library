@@ -6,7 +6,7 @@ import Html.Events exposing (..)
 import Product exposing (..)
 import Price
 import Compound exposing (Compound(..))
-import Dialog exposing (Dialog)
+import Dialog
 
 
 toCurrency : Float -> String
@@ -30,7 +30,7 @@ main =
 
 type alias Model =
     { products : List Product
-    , dialog : Dialog
+    , dialog : Dialog.Model
     }
 
 

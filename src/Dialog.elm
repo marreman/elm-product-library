@@ -5,11 +5,11 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
-type alias Dialog =
+type alias Model =
     { isOpen : Bool }
 
 
-init : Dialog
+init : Model
 init =
     { isOpen = False }
 
@@ -21,21 +21,21 @@ type Msg
     | UpdatePrice String
 
 
-update : Msg -> Dialog -> Dialog
-update msg dialog =
+update : Msg -> Model -> Model
+update msg model =
     case msg of
         Open ->
-            { dialog | isOpen = True }
+            { model | isOpen = True }
 
         Close ->
-            { dialog | isOpen = False }
+            { model | isOpen = False }
 
         _ ->
             Debug.crash "NOT IMPLEMENTED"
 
 
-view : Dialog -> Html Msg
-view dialog =
+view : Model -> Html Msg
+view model =
     div []
         [ div [ class "overlay", onClick Close ] []
         , div [ class "dialog" ]
