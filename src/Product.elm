@@ -5,7 +5,7 @@ import Compound exposing (Compound(..))
 
 type ProductType
     = Single Product
-    | Group ProductGroup (Compound Product)
+    | Group GroupInfo (Compound Product)
 
 
 type alias Product =
@@ -14,8 +14,9 @@ type alias Product =
     }
 
 
-type alias ProductGroup =
-    { name : String
+type alias GroupInfo =
+    { id : Int
+    , name : String
     , isOpen : Bool
     }
 
@@ -25,9 +26,9 @@ single product =
     Single product
 
 
-group : String -> Product -> Product -> List Product -> ProductType
-group name first second rest =
-    Group (ProductGroup name False) <| Compound first second rest
+group : Int -> String -> Product -> Product -> List Product -> ProductType
+group id name first second rest =
+    Group (GroupInfo id name False) <| Compound first second rest
 
 
 length : Compound a -> Int
@@ -56,11 +57,11 @@ priceRange compound =
         )
 
 
-openGroup : ProductType -> ProductType
-openGroup productType =
+toggleGroup : ProductType -> ProductType
+toggleGroup productType =
     case productType of
         Single _ ->
             productType
 
-        Group description products ->
-            Group { description | isOpen = False } products
+        Group info products ->
+            Group { info | isOpen = not info.isOpen } products

@@ -39,10 +39,15 @@ model =
     { products =
         [ Product.single
             (Product "Orange Juice" 10.0)
-        , Product.group
+        , Product.group 1
             "Pies"
             (Product "Blueberry" 9.0)
             (Product "Lemon" 11.0)
+            []
+        , Product.group 2
+            "Animals"
+            (Product "Cat" 15.2)
+            (Product "Dog" 33.1)
             []
         ]
     , modalIsOpen = False
@@ -54,7 +59,7 @@ model =
 type Msg
     = OpenProductModal
     | CloseProductModal
-    | OpenGroup Int
+    | ToggleGroup Int
     | UpdateProductName String
     | UpdateProductPrice String
 
@@ -68,7 +73,7 @@ update msg model =
         CloseProductModal ->
             { model | modalIsOpen = False }
 
-        OpenGroup id ->
+        ToggleGroup id ->
             { model
                 | products =
                     List.map
@@ -77,8 +82,11 @@ update msg model =
                                 Single _ ->
                                     productType
 
-                                Group { name, isOpen } products ->
-                                    Product.openGroup productType
+                                Group info products ->
+                                    if info.id == id then
+                                        Product.toggleGroup productType
+                                    else
+                                        productType
                         )
                         model.products
             }
@@ -125,14 +133,14 @@ viewProduct productType =
                 ]
             ]
 
-        Group { name, isOpen } products ->
+        Group info products ->
             let
                 viewGroup =
                     [ tr [ class "row" ]
-                        [ td [] [ text name ]
+                        [ td [] [ text info.name ]
                         , td []
                             [ text <| toString <| Product.length products
-                            , button [ onClick <| OpenGroup 0 ] [ text "⬇" ]
+                            , button [ onClick <| ToggleGroup info.id ] [ text "⬇" ]
                             ]
                         , td [] [ text <| rangeToCurrency <| Product.priceRange products ]
                         ]
@@ -151,7 +159,7 @@ viewProduct productType =
                         Product.toList products
             in
                 viewGroup
-                    ++ if isOpen then
+                    ++ if info.isOpen then
                         viewProducts
                        else
                         []
