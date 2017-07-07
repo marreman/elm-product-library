@@ -6,7 +6,7 @@ import Html.Events exposing (..)
 import Product exposing (..)
 import Price
 import Compound exposing (Compound(..))
-import Modal exposing (Modal)
+import Dialog exposing (Dialog)
 
 
 toCurrency : Float -> String
@@ -30,7 +30,7 @@ main =
 
 type alias Model =
     { products : List Product
-    , modal : Modal
+    , dialog : Dialog
     }
 
 
@@ -50,20 +50,20 @@ model =
             (ProductInfo "Dog" 33.1)
             []
         ]
-    , modal = Modal.init
+    , dialog = Dialog.init
     }
 
 
 type Msg
     = ToggleGroup Int
-    | ModalMsg Modal.Msg
+    | DialogMsg Dialog.Msg
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        ModalMsg modalMsg ->
-            { model | modal = Modal.update modalMsg model.modal }
+        DialogMsg dialogMsg ->
+            { model | dialog = Dialog.update dialogMsg model.dialog }
 
         ToggleGroup id ->
             let
@@ -86,7 +86,7 @@ view model =
     main_ [ class "main" ]
         [ header []
             [ h1 [] [ text "Products" ]
-            , button [ class "button", onClick <| ModalMsg Modal.Open ] [ text "Add product" ]
+            , button [ class "button", onClick <| DialogMsg Dialog.Open ] [ text "Add product" ]
             ]
         , table []
             [ thead []
@@ -98,8 +98,8 @@ view model =
                 ]
             , tbody [] <| List.concatMap viewProduct model.products
             ]
-        , if model.modal.isOpen then
-            Html.map ModalMsg <| Modal.view model.modal
+        , if model.dialog.isOpen then
+            Html.map DialogMsg <| Dialog.view model.dialog
           else
             text ""
         ]

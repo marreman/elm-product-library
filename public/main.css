@@ -94,7 +94,7 @@ td:last-child {
   background-color: rgba(0, 0, 0, .3);
 }
 
-.modal {
+.dialog {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -106,7 +106,7 @@ td:last-child {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.modal-close {
+.dialog-close {
   display: inline-block;
   height: 50px;
   width: 50px;
@@ -118,24 +118,24 @@ td:last-child {
   cursor: pointer;
 }
 
-.modal-body form {
+.dialog-body form {
   display: flex;
   flex-wrap: wrap;
 }
 
-.modal-body label {
+.dialog-body label {
   width: 50%;
 }
 
-.modal-body label:first-child {
+.dialog-body label:first-child {
   padding-right: 5px;
 }
 
-.modal-body input {
+.dialog-body input {
   width: 100%;
 }
 
-.modal-footer {
+.dialog-footer {
   width: 100%;
   margin-top: 20px;
 }

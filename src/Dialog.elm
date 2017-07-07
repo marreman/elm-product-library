@@ -1,15 +1,15 @@
-module Modal exposing (..)
+module Dialog exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
-type alias Modal =
+type alias Dialog =
     { isOpen : Bool }
 
 
-init : Modal
+init : Dialog
 init =
     { isOpen = False }
 
@@ -21,29 +21,29 @@ type Msg
     | UpdatePrice String
 
 
-update : Msg -> Modal -> Modal
-update msg modal =
+update : Msg -> Dialog -> Dialog
+update msg dialog =
     case msg of
         Open ->
-            { modal | isOpen = True }
+            { dialog | isOpen = True }
 
         Close ->
-            { modal | isOpen = False }
+            { dialog | isOpen = False }
 
         _ ->
             Debug.crash "NOT IMPLEMENTED"
 
 
-view : Modal -> Html Msg
-view modal =
+view : Dialog -> Html Msg
+view dialog =
     div []
         [ div [ class "overlay", onClick Close ] []
-        , div [ class "modal" ]
+        , div [ class "dialog" ]
             [ header []
                 [ h2 [] [ text "New Product" ]
-                , button [ class "modal-close", onClick Close ] [ text "×" ]
+                , button [ class "dialog-close", onClick Close ] [ text "×" ]
                 ]
-            , main_ [ class "modal-body" ]
+            , main_ [ class "dialog-body" ]
                 [ Html.form []
                     [ label []
                         [ text "Name"
@@ -64,7 +64,7 @@ view modal =
                             ]
                             []
                         ]
-                    , footer [ class "modal-footer" ]
+                    , footer [ class "dialog-footer" ]
                         [ button [ class "button", type_ "submit" ] [ text "Create" ] ]
                     ]
                 ]
