@@ -140,7 +140,13 @@ viewProduct productType =
                         [ td [] [ text info.name ]
                         , td []
                             [ text <| toString <| Product.length products
-                            , button [ onClick <| ToggleGroup info.id ] [ text "⬇" ]
+                            , button [ onClick <| ToggleGroup info.id ]
+                                [ text <|
+                                    if info.isOpen then
+                                        "⬆"
+                                    else
+                                        "⬇"
+                                ]
                             ]
                         , td [] [ text <| rangeToCurrency <| Product.priceRange products ]
                         ]
