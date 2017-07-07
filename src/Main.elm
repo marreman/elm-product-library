@@ -6,6 +6,7 @@ import Html.Events exposing (..)
 import Product exposing (..)
 import Price
 import Compound exposing (Compound(..))
+import Modal exposing (Modal)
 
 
 toCurrency : Float -> String
@@ -29,9 +30,7 @@ main =
 
 type alias Model =
     { products : List Product
-    , modalIsOpen : Bool
-    , productName : String
-    , productPrice : String
+    , modal : Modal
     }
 
 
@@ -51,28 +50,20 @@ model =
             (ProductInfo "Dog" 33.1)
             []
         ]
-    , modalIsOpen = False
-    , productName = ""
-    , productPrice = ""
+    , modal = Modal.init
     }
 
 
 type Msg
-    = OpenProductModal
-    | CloseProductModal
-    | ToggleGroup Int
-    | UpdateProductName String
-    | UpdateProductPrice String
+    = ToggleGroup Int
+    | ModalMsg Modal.Msg
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        OpenProductModal ->
-            { model | modalIsOpen = True }
-
-        CloseProductModal ->
-            { model | modalIsOpen = False }
+        ModalMsg modalMsg ->
+            { model | modal = Modal.update modalMsg model.modal }
 
         ToggleGroup id ->
             let
@@ -89,19 +80,13 @@ update msg model =
             in
                 { model | products = List.map updateProduct model.products }
 
-        UpdateProductName newName ->
-            { model | productName = newName }
-
-        UpdateProductPrice newPrice ->
-            { model | productPrice = newPrice }
-
 
 view : Model -> Html Msg
 view model =
     main_ [ class "main" ]
         [ header []
             [ h1 [] [ text "Products" ]
-            , button [ class "button", onClick OpenProductModal ] [ text "Add product" ]
+            , button [ class "button", onClick <| ModalMsg Modal.Open ] [ text "Add product" ]
             ]
         , table []
             [ thead []
@@ -113,8 +98,8 @@ view model =
                 ]
             , tbody [] <| List.concatMap viewProduct model.products
             ]
-        , if model.modalIsOpen then
-            viewModal
+        , if model.modal.isOpen then
+            Html.map ModalMsg <| Modal.view model.modal
           else
             text ""
         ]
@@ -170,42 +155,4 @@ viewProductGroup info products =
                 Product.toList products
           else
             []
-        ]
-
-
-viewModal : Html Msg
-viewModal =
-    div []
-        [ div [ class "overlay", onClick CloseProductModal ] []
-        , div [ class "modal" ]
-            [ header []
-                [ h2 [] [ text "New Product" ]
-                , button [ class "modal-close", onClick CloseProductModal ] [ text "×" ]
-                ]
-            , main_ [ class "modal-body" ]
-                [ Html.form []
-                    [ label []
-                        [ text "Name"
-                        , input
-                            [ type_ "text"
-                            , required True
-                            , onInput UpdateProductName
-                            ]
-                            []
-                        ]
-                    , label []
-                        [ text "Price"
-                        , input
-                            [ type_ "number"
-                            , required True
-                            , Html.Attributes.min "0"
-                            , onInput UpdateProductPrice
-                            ]
-                            []
-                        ]
-                    , footer [ class "modal-footer" ]
-                        [ button [ class "button", type_ "submit" ] [ text "Create" ] ]
-                    ]
-                ]
-            ]
         ]
