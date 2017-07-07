@@ -141,9 +141,8 @@ viewSingleProduct product =
 
 viewProductGroup : GroupInfo -> Compound ProductInfo -> List (Html Msg)
 viewProductGroup info products =
-    let
-        viewGroup =
-            [ tr [ class "row" ]
+    List.concat
+        [ [ tr [ class "row" ]
                 [ td [] [ text info.name ]
                 , td []
                     [ text <| toString <| Product.length products
@@ -157,9 +156,8 @@ viewProductGroup info products =
                     ]
                 , td [] [ text <| rangeToCurrency <| Product.priceRange products ]
                 ]
-            ]
-
-        viewProducts =
+          ]
+        , if info.isOpen then
             List.map
                 (\product ->
                     tr []
@@ -170,12 +168,9 @@ viewProductGroup info products =
                 )
             <|
                 Product.toList products
-    in
-        viewGroup
-            ++ if info.isOpen then
-                viewProducts
-               else
-                []
+          else
+            []
+        ]
 
 
 viewModal : Html Msg
