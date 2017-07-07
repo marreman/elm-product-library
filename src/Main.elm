@@ -5,6 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Product exposing (..)
 import Price
+import Compound exposing (Compound(..))
 
 
 toCurrency : Float -> String
@@ -126,49 +127,58 @@ viewProduct : Product -> List (Html Msg)
 viewProduct productType =
     case productType of
         Single product ->
+            [ viewSingleProduct product ]
+
+        Group info products ->
+            viewProductGroup info products
+
+
+viewSingleProduct : ProductInfo -> Html Msg
+viewSingleProduct product =
+    tr [ class "row" ]
+        [ td [] [ text product.name ]
+        , td [] [ text "" ]
+        , td [] [ text <| toCurrency product.price ]
+        ]
+
+
+viewProductGroup : GroupInfo -> Compound ProductInfo -> List (Html Msg)
+viewProductGroup info products =
+    let
+        viewGroup =
             [ tr [ class "row" ]
-                [ td [] [ text product.name ]
-                , td [] [ text "" ]
-                , td [] [ text <| toCurrency product.price ]
+                [ td [] [ text info.name ]
+                , td []
+                    [ text <| toString <| Product.length products
+                    , button [ onClick <| ToggleGroup info.id ]
+                        [ text <|
+                            if info.isOpen then
+                                "⬆"
+                            else
+                                "⬇"
+                        ]
+                    ]
+                , td [] [ text <| rangeToCurrency <| Product.priceRange products ]
                 ]
             ]
 
-        Group info products ->
-            let
-                viewGroup =
-                    [ tr [ class "row" ]
-                        [ td [] [ text info.name ]
-                        , td []
-                            [ text <| toString <| Product.length products
-                            , button [ onClick <| ToggleGroup info.id ]
-                                [ text <|
-                                    if info.isOpen then
-                                        "⬆"
-                                    else
-                                        "⬇"
-                                ]
-                            ]
-                        , td [] [ text <| rangeToCurrency <| Product.priceRange products ]
+        viewProducts =
+            List.map
+                (\product ->
+                    tr []
+                        [ td [] []
+                        , td [] [ text product.name ]
+                        , td [] [ text <| toCurrency product.price ]
                         ]
-                    ]
-
-                viewProducts =
-                    List.map
-                        (\product ->
-                            tr []
-                                [ td [] []
-                                , td [] [ text product.name ]
-                                , td [] [ text <| toCurrency product.price ]
-                                ]
-                        )
-                    <|
-                        Product.toList products
-            in
-                viewGroup
-                    ++ if info.isOpen then
-                        viewProducts
-                       else
-                        []
+                )
+            <|
+                Product.toList products
+    in
+        viewGroup
+            ++ if info.isOpen then
+                viewProducts
+               else
+                []
 
 
 viewModal : Html Msg
